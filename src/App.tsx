@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import Navbar from "./components/NavBar";
-import Selection from "./containers/ServiceSelection";
+import Selection from "./containers/EquipmentSelection";
 import Checkout from "./containers/Checkout";
 import Payment, { PaymentInfo } from "./containers/Payment";
 import { CustomerInfo } from "./components/forms/CustomerInfoForm";
@@ -21,7 +21,7 @@ const App: React.FC = () => {
   };
 
   // STATE - Set empty object state for selectedServices and false for checkout and payment steps.
-  const [selectedServices, setSelectedServices] = useState<{
+  const [selectedEquipment, setSelectedEquipment] = useState<{
     [key: string]: number;
   }>({});
   const [checkoutComplete, setCheckoutComplete] = useState(false);
@@ -32,7 +32,7 @@ const App: React.FC = () => {
 
   // FUNCTION - Clear all our state for a new order.
   const handleNewOrder = () => {
-    setSelectedServices({});
+    setSelectedEquipment({});
     setCheckoutComplete(false);
     setPaymentComplete(false);
     setOrderInfo(null);
@@ -41,7 +41,7 @@ const App: React.FC = () => {
   };
 
   const handleReturnToCheckout = () => {
-    if (selectedServices && Object.keys(selectedServices).length === 0) {
+    if (selectedEquipment && Object.keys(selectedEquipment).length === 0) {
       alert('Cart is empty!');
       return;
     }
@@ -60,13 +60,13 @@ const App: React.FC = () => {
   // ...Check if paymentComplete is false, if so render Payment, if not,
   // ...render OrderConfirmation.
   const renderStep = () => {
-    if (Object.keys(selectedServices).length === 0) {
-      return <Selection setSelectedServices={setSelectedServices} />;
+    if (Object.keys(selectedEquipment).length === 0) {
+      return <Selection setSelectedServices={setSelectedEquipment} />;
     } else if (!checkoutComplete) {
       return (
         <Checkout
-          selectedServices={selectedServices}
-          setSelectedServices={setSelectedServices}
+          selectedServices={selectedEquipment}
+          setSelectedServices={setSelectedEquipment}
           setCheckoutComplete={setCheckoutComplete}
           setOrderInfo={setOrderInfo}
           setCustomerInfo={setCustomerInfo}
@@ -76,7 +76,7 @@ const App: React.FC = () => {
     } else if (!paymentComplete) {
       return (
         <Payment
-          selectedServices={selectedServices}
+          selectedServices={selectedEquipment}
           setCheckoutComplete={setCheckoutComplete}
           setPaymentComplete={setPaymentComplete}
           customerInfo={customerInfo}
@@ -89,7 +89,7 @@ const App: React.FC = () => {
     } else {
       return (
         <OrderConfirmation
-          selectedServices={selectedServices}
+          selectedServices={selectedEquipment}
           customerInfo={customerInfo}
           orderInfo={orderInfo}
           paymentInfo={paymentInfo}
