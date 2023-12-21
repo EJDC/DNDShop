@@ -109,3 +109,27 @@ export const convertToDNDDenominations = (amount: number): string => {
 
     return result;
 };
+
+export const convertToDNDDenominations2 = (amount: number, unit: string): string => {
+    const denominations = [
+      { coinName: 'Platinum', value: 10 },
+      { coinName: 'Gold', value: 1 },
+      { coinName: 'Silver', value: 0.1 },
+      { coinName: 'Copper', value: 0.01 },
+    ];
+  
+    const adjustedPrice = unit === 'pp' ? amount * 10 : unit === 'gp' ? amount : unit === 'sp' ? amount * 0.1 : amount * 0.01;
+  
+    let remainingAmount = adjustedPrice;
+    let result = '';
+  
+    for (const denomination of denominations) {
+      const count = Math.floor(remainingAmount / denomination.value);
+      if (count > 0) {
+        result += `${count} ${denomination.coinName} `;
+        remainingAmount -= count * denomination.value;
+      }
+    }
+  
+    return result.trim();
+  };
