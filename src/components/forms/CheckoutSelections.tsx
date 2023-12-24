@@ -1,11 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import {
-  convertToDNDDenominations,
-  items,
-  calculateTotalAndConvertToDNDDenominations,
-  convertToDNDDenominations2,
-} from "../../servicesBackend";
+import { calculateTotalAndConvertToDNDDenominations } from "../../servicesBackend";
 
 interface CheckoutSelectionsProps {
   selectedServices: { [key: string]: number };
@@ -74,7 +69,7 @@ const CheckoutSelections: React.FC<CheckoutSelectionsProps> = ({
           ? calculateTotalAndConvertToDNDDenominations(
               itemDetail,
               quantity,
-              itemDetail.cost.quantity,
+              itemDetail.cost.quantity
             )
           : "N/A";
 
