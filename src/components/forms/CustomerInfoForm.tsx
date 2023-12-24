@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
 export interface CustomerInfo {
-  firstName: string;
-  lastName: string;
-  address1: string;
-  address2: string;
+  characterFirstName: string;
+  characterLastName: string;
+  playerName: string;
+  lodgings: string;
   city: string;
-  postcode: string;
-  phoneNumber: string;
+  district: string;
+  partyName: string;
   emailAddress: string;
 }
 
@@ -17,13 +17,13 @@ interface CustomerInfoFormProps {
 
 const CustomerInfoForm: React.FC<CustomerInfoFormProps> = ({ onChange }) => {
   const [customerInfo, setCustomerInfo] = useState<CustomerInfo>({
-    firstName: "",
-    lastName: "",
-    address1: "",
-    address2: "",
+    characterFirstName: "",
+    characterLastName: "",
+    playerName: "",
+    lodgings: "",
     city: "",
-    postcode: "",
-    phoneNumber: "",
+    district: "",
+    partyName: "",
     emailAddress: "",
   });
 
@@ -50,15 +50,15 @@ const CustomerInfoForm: React.FC<CustomerInfoFormProps> = ({ onChange }) => {
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label
               className="block text-gray-800 text-sm font-bold mb-2"
-              htmlFor="firstName"
+              htmlFor="characterFirstName"
             >
-              First Name *
+              Character First Name *
             </label>
             <input
               type="text"
-              id="firstName" //Links label and input, should match htmlFor in label.
-              name="firstName" //Used by handleChange function.
-              value={customerInfo.firstName}
+              id="characterFirstName" //Links label and input, should match htmlFor in label.
+              name="characterFirstName" //Used by handleChange function.
+              value={customerInfo.characterFirstName}
               onChange={handleChange}
               placeholder="Enter your first name"
               required
@@ -68,15 +68,15 @@ const CustomerInfoForm: React.FC<CustomerInfoFormProps> = ({ onChange }) => {
           <div className="w-full md:w-1/2 px-3">
             <label
               className="block text-gray-800 text-sm font-bold mb-2"
-              htmlFor="lastName"
+              htmlFor="characterLastName"
             >
-              Last Name *
+               Character Last Name *
             </label>
             <input
               type="text"
-              id="lastName" //Links label and input, should match htmlFor in label.
-              name="lastName" //Used by handleChange function.
-              value={customerInfo.lastName}
+              id="characterLastName" //Links label and input, should match htmlFor in label.
+              name="characterLastName" //Used by handleChange function.
+              value={customerInfo.characterLastName}
               onChange={handleChange}
               placeholder="Enter your last name"
               required
@@ -87,17 +87,17 @@ const CustomerInfoForm: React.FC<CustomerInfoFormProps> = ({ onChange }) => {
         <div className="mb-4">
           <label
             className="block text-gray-800 text-sm font-bold mb-2"
-            htmlFor="address1"
+            htmlFor="playerName"
           >
-            Address 1 *
+            Player Name *
           </label>
           <input
             type="text"
-            id="address1" //Links label and input, should match htmlFor in label.
-            name="address1" //Used by handleChange function.
-            value={customerInfo.address1}
+            id="playerName" //Links label and input, should match htmlFor in label.
+            name="playerName" //Used by handleChange function.
+            value={customerInfo.playerName}
             onChange={handleChange}
-            placeholder="Enter your address"
+            placeholder="Enter your player's name"
             required
             className="border rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
@@ -105,17 +105,17 @@ const CustomerInfoForm: React.FC<CustomerInfoFormProps> = ({ onChange }) => {
         <div className="mb-4">
           <label
             className="block text-gray-800 text-sm font-bold mb-2"
-            htmlFor="address2"
+            htmlFor="lodgings"
           >
-            Address 2
+            Lodgings / Inn / Tavern
           </label>
           <input
             type="text"
-            id="address2" //Links label and input, should match htmlFor in label.
-            name="address2" //Used by handleChange function.
-            value={customerInfo.address2}
+            id="lodgings" //Links label and input, should match htmlFor in label.
+            name="lodgings" //Used by handleChange function.
+            value={customerInfo.lodgings}
             onChange={handleChange}
-            placeholder="Enter your address (optional)"
+            placeholder="Enter your lodgings"
             className="border rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -141,17 +141,17 @@ const CustomerInfoForm: React.FC<CustomerInfoFormProps> = ({ onChange }) => {
           <div className="w-full md:w-1/2 px-3">
             <label
               className="block text-gray-800 text-sm font-bold mb-2"
-              htmlFor="postcode"
+              htmlFor="district"
             >
-              Postcode *
+              District *
             </label>
             <input
               type="text"
-              id="postcode" //Links label and input, should match htmlFor in label.
-              name="postcode" //Used by handleChange function.
-              value={customerInfo.postcode}
+              id="district" //Links label and input, should match htmlFor in label.
+              name="district" //Used by handleChange function.
+              value={customerInfo.district}
               onChange={handleChange}
-              placeholder="Enter your postcode"
+              placeholder="Enter your district"
               required
               className="border rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
@@ -160,17 +160,17 @@ const CustomerInfoForm: React.FC<CustomerInfoFormProps> = ({ onChange }) => {
         <div className="mb-4">
           <label
             className="block text-gray-800 text-sm font-bold mb-2"
-            htmlFor="phoneNumber"
+            htmlFor="partyName"
           >
-            Phone Number *
+            Party Name *
           </label>
           <input
             type="text"
-            id="phoneNumber" //Links label and input, should match htmlFor in label.
-            name="phoneNumber" //Used by handleChange function.
-            value={customerInfo.phoneNumber}
+            id="partyName" //Links label and input, should match htmlFor in label.
+            name="partyName" //Used by handleChange function.
+            value={customerInfo.partyName}
             onChange={handleChange}
-            placeholder="Enter your phone number"
+            placeholder="Enter your party's name"
             required
             className="border rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
           />

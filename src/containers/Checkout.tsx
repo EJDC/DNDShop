@@ -137,12 +137,12 @@ const Checkout: React.FC<CheckoutProps> = ({
   const handleProceedToPayment = async () => {
     //Create an array with all the keys in the Customer Object for required fields.
     const requiredFields: Array<keyof CustomerInfo> = [
-      "firstName",
-      "lastName",
-      "address1",
+      "characterFirstName",
+      "characterLastName",
+      "playerName",
       "city",
-      "postcode",
-      "phoneNumber",
+      "district",
+      "partyName",
       "emailAddress",
     ];
 

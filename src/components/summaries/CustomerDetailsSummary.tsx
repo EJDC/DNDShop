@@ -14,14 +14,14 @@ const CustomerDetailsSummary: React.FC<CustomerDetailsSummaryProps> = ({
       {customerInfo ? (
         <div className="border bg-gray-200 border-gray-400 p-4 rounded-md relative mb-4">
           <p>
-            {customerInfo.firstName || "No First Name"}
-            {customerInfo.lastName || "No Last Name"}
+            {customerInfo.characterFirstName || "No First Name"}
+            {customerInfo.characterLastName || "No Last Name"}
           </p>
-          <p>{customerInfo.address1 || "Address line 1 not provided"}</p>
-          <p>{customerInfo.address2 || ""}</p>
+          <p>{customerInfo.playerName || "Address line 1 not provided"}</p>
+          <p>{customerInfo.lodgings || ""}</p>
           <p>{customerInfo.city || "City not provided"}</p>
-          <p>{customerInfo.postcode || "Postcode not provided"}</p>
-          <p>{customerInfo.phoneNumber || "Phone number not provided"}</p>
+          <p>{customerInfo.district || "Postcode not provided"}</p>
+          <p>{customerInfo.partyName || "Phone number not provided"}</p>
           <p>{customerInfo.emailAddress || "Email address not provided"}</p>
         </div>
       ) : (

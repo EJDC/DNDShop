@@ -10,13 +10,13 @@ import OrderConfirmation from "./containers/Confirmation";
 const App: React.FC = () => {
   //Initiate blank customerinfo to avoid problems with validation at checkout.
   const initialCustomerInfo = {
-    firstName: "",
-    lastName: "",
-    address1: "",
-    address2: "",
+    characterFirstName: "",
+    characterLastName: "",
+    playerName: "",
+    lodgings: "",
     city: "",
-    postcode: "",
-    phoneNumber: "",
+    district: "",
+    partyName: "",
     emailAddress: "",
   };
 
