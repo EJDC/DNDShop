@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { items } from "../servicesBackend";
+import React, { useState, useEffect } from "react";
 import DeliveryPaymentOptions from "../components/forms/DeliveryPaymentOptions";
 import { DeliveryOption, PaymentOption } from "../servicesBackend";
 import CustomerInfoForm, {
@@ -34,28 +33,64 @@ const Checkout: React.FC<CheckoutProps> = ({
   setCustomerInfo,
   customerInfo,
 }) => {
-
   //STATE - Selected Payment/Delivery Option or null.
   const [selectedPaymentOption, setSelectedPaymentOption] =
     useState<PaymentOption | null>(null);
   const [selectedDeliveryOption, setSelectedDeliveryOption] =
     useState<DeliveryOption | null>(null);
+  const [calculatedSubtotal, setCalculatedSubtotal] = useState<number>(0);
+  const [calculatedGrandTotal, setCalculatedGrandTotal] = useState<number>(0);
 
-  //FUNCTION - Calculate Subtotal
-  const calculateSubtotal = () => {
-    let subtotal = 0;
-    Object.entries(selectedServices).forEach(
-      ([serviceDescription, quantity]) => {
-        const service = items.find(
-          (service) => service.itemDescription === serviceDescription
-        );
-        if (service) {
-          subtotal += service.price * quantity;
+  useEffect(() => {
+    const calculateSubtotal = async (): Promise<number> => {
+      let subtotal = 0;
+
+      for (const [url, quantity] of Object.entries(selectedServices)) {
+        try {
+          const response = await fetch(`https://www.dnd5eapi.co${url}`);
+          const itemDetail = await response.json();
+
+          if (itemDetail && itemDetail.cost && itemDetail.cost.unit) {
+            const unit = itemDetail.cost.unit;
+            const cost = itemDetail.cost.quantity;
+
+            let convertedCost = 0;
+
+            switch (unit) {
+              case "pp":
+                convertedCost = cost * 10;
+                break;
+              case "gp":
+                convertedCost = cost;
+                break;
+              case "sp":
+                convertedCost = cost * 0.1;
+                break;
+              case "cp":
+                convertedCost = cost * 0.01;
+                break;
+              default:
+                break;
+            }
+
+            subtotal += convertedCost * quantity;
+          }
+        } catch (error) {
+          console.error(`Error fetching item details for ${url}:`, error);
         }
       }
-    );
-    return subtotal;
-  };
+
+      return subtotal;
+    };
+
+    const fetchSubtotal = async () => {
+      const subtotal = await calculateSubtotal();
+      setCalculatedSubtotal(subtotal);
+    };
+
+    fetchSubtotal();
+  }, [selectedServices]);
+
 
   const calculateDeliveryFee = () => {
     return selectedDeliveryOption ? selectedDeliveryOption.price : 0;
@@ -65,13 +100,27 @@ const Checkout: React.FC<CheckoutProps> = ({
     return selectedPaymentOption ? selectedPaymentOption.price : 0;
   };
 
-  const calculateGrandTotal = () => {
-    const subtotal = calculateSubtotal();
-    const deliveryFee = calculateDeliveryFee();
-    const paymentFee = calculatePaymentFee();
-    const grandTotal = subtotal + deliveryFee + paymentFee;
-    return grandTotal;
+  const calculateGrandTotal = async (): Promise<number> => {
+    try {
+      const subtotal = calculatedSubtotal; // Use the state value
+      const deliveryFee = calculateDeliveryFee();
+      const paymentFee = calculatePaymentFee();
+      const grandTotal = subtotal + deliveryFee + paymentFee;
+      return grandTotal;
+    } catch (error) {
+      console.error("Error calculating grand total:", error);
+      return 0;
+    }
   };
+
+  useEffect(() => {
+    const calculateAndSetGrandTotal = async () => {
+      const total = await calculateGrandTotal();
+      setCalculatedGrandTotal(total);
+    };
+
+    calculateAndSetGrandTotal();
+  }, [calculatedSubtotal]);
 
   const handlePaymentSelection = (selectedOption: PaymentOption) => {
     setSelectedPaymentOption(selectedOption);
@@ -85,7 +134,7 @@ const Checkout: React.FC<CheckoutProps> = ({
     setCustomerInfo(customerData);
   };
 
-  const handleProceedToPayment = () => {
+  const handleProceedToPayment = async () => {
     //Create an array with all the keys in the Customer Object for required fields.
     const requiredFields: Array<keyof CustomerInfo> = [
       "firstName",
@@ -114,14 +163,12 @@ const Checkout: React.FC<CheckoutProps> = ({
 
     //If there's nothing in the missing fields array, proceed to payment.
     if (missingFields.length === 0) {
-      const subtotal = calculateSubtotal();
       const deliveryFee = calculateDeliveryFee();
       const paymentFee = calculatePaymentFee();
-      const grandTotal = calculateGrandTotal();
 
       const orderData: OrderInfo = {
-        grandTotal,
-        subtotal,
+        grandTotal: calculatedGrandTotal,
+        subtotal: calculatedSubtotal,
         deliveryMethod: selectedDeliveryOption
           ? selectedDeliveryOption.name
           : "",
@@ -141,10 +188,8 @@ const Checkout: React.FC<CheckoutProps> = ({
     }
   };
 
-  const calculatedSubtotal = calculateSubtotal();
   const calculatedDeliveryFee = calculateDeliveryFee();
   const calculatedPaymentFee = calculatePaymentFee();
-  const calculatedGrandTotal = calculateGrandTotal();
 
   return (
     <main className="container mx-auto px-4 py-8 mt-5 border rounded-lg max-w-xl lg:max-w-7xl">
