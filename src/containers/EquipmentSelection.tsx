@@ -77,6 +77,7 @@ const EquipmentSelection: React.FC<EquipmentSelectionProps> = ({
 
   //FUNCTION - Calculate cost in decimal, then convert it into roman money using our (fake) backend services.
   const calculateTotal = (
+    // @ts-ignore
     itemIndex: string,
     quantity: number,
     price: number,

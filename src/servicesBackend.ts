@@ -75,6 +75,7 @@ export const paymentOptions = [
 
 //CURRENCY CALCULATION AND CONVERTION
 //FUNCTION - Calculate cost in decimal, then convert it into dnd money using our (fake) backend services.
+// @ts-ignore
 export const calculateTotalAndConvertToDNDDenominations = (serviceDescription: string, quantity: number, price: number) => {
     const totalinDecimal = quantity * price;
     return convertToDNDDenominations(totalinDecimal);
