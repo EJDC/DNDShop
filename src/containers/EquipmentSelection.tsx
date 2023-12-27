@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { items, convertToDNDDenominations2 } from "../servicesBackend";
+import { convertToDNDDenominations2 } from "../servicesBackend";
 
 // INTERFACE - setSelectedServices function from .App => takes in list of services made up of strings (keys) and numbers, no returns.
 interface EquipmentSelectionProps {
@@ -130,68 +130,76 @@ const EquipmentSelection: React.FC<EquipmentSelectionProps> = ({
           ))}
         </select>
         {/* Map out our services imported from servicesbackend and create an article for each */}
-        {equipment.map((item) => (
-          item.cost ? 
-          <article
-            key={item.index}
-            className={`border p-4 rounded-md text-center ${
-              isActive(item.url)
-                ? "bg-green-100 border-green-500"
-                : "bg-gray-100 border-gray-400"
-            }`}
-            aria-label={`Service: ${item.name}`}
-          >
-            <h2 className="mb-2 font-bold">{item.name}</h2>
-            <p className="mb-2">
-              {item.cost ? convertToDNDDenominations2(item.cost.quantity, item.cost.unit) : null}
-            </p>
-            {/* Quantity Input */}
-            <div className="flex justify-center items-center mb-2">
-              <button
-                onClick={() =>
-                  handleQuantityChange(
-                    item.url,
-                    Math.max(0, (preferredEquipment[item.url] || 0) - 1)
-                  )
-                }
-                className="w-8 h-8 bg-red-600 text-white rounded-full ml-2"
-                aria-label={`Decrease quantity of ${item.name}`}
-              >
-                -
-              </button>
-              <input
-                min="0"
-                value={preferredEquipment[item.url] || 0}
-                onChange={(e) =>
-                  handleQuantityChange(item.url, +e.target.value)
-                }
-                className="w-16 p-2 mr-3 ml-3 border rounded-md text-center mx-2"
-                aria-label={`Quantity of ${item.name}`}
-              />
-              <button
-                onClick={() =>
-                  handleQuantityChange(
-                    item.url,
-                    (preferredEquipment[item.url] || 0) + 1
-                  )
-                }
-                className="w-8 h-8 bg-blue-600 text-white rounded-full mr-2"
-                aria-label={`Increase quantity of ${item.name}`}
-              >
-                +
-              </button>
-            </div>
-            {/* Calculate total using item.cost.quantity for the item.name in the state (or zero) */}
-            <p className="mb-2">
-              {item.cost ? calculateTotal(
-                item.index,
-                preferredEquipment[item.url] || 0,
-                item.cost.quantity,
-                item.cost.unit 
-              ) : 'MAGIC'}
-            </p>
-          </article>
-        : null))}
+        {equipment.map((item) =>
+          item.cost ? (
+            <article
+              key={item.index}
+              className={`border p-4 rounded-md text-center ${
+                isActive(item.url)
+                  ? "bg-green-100 border-green-500"
+                  : "bg-gray-100 border-gray-400"
+              }`}
+              aria-label={`Service: ${item.name}`}
+            >
+              <h2 className="mb-2 font-bold">{item.name}</h2>
+              <p className="mb-2">
+                {item.cost
+                  ? convertToDNDDenominations2(
+                      item.cost.quantity,
+                      item.cost.unit
+                    )
+                  : null}
+              </p>
+              {/* Quantity Input */}
+              <div className="flex justify-center items-center mb-2">
+                <button
+                  onClick={() =>
+                    handleQuantityChange(
+                      item.url,
+                      Math.max(0, (preferredEquipment[item.url] || 0) - 1)
+                    )
+                  }
+                  className="w-8 h-8 bg-red-600 text-white rounded-full ml-2"
+                  aria-label={`Decrease quantity of ${item.name}`}
+                >
+                  -
+                </button>
+                <input
+                  min="0"
+                  value={preferredEquipment[item.url] || 0}
+                  onChange={(e) =>
+                    handleQuantityChange(item.url, +e.target.value)
+                  }
+                  className="w-16 p-2 mr-3 ml-3 border rounded-md text-center mx-2"
+                  aria-label={`Quantity of ${item.name}`}
+                />
+                <button
+                  onClick={() =>
+                    handleQuantityChange(
+                      item.url,
+                      (preferredEquipment[item.url] || 0) + 1
+                    )
+                  }
+                  className="w-8 h-8 bg-blue-600 text-white rounded-full mr-2"
+                  aria-label={`Increase quantity of ${item.name}`}
+                >
+                  +
+                </button>
+              </div>
+              {/* Calculate total using item.cost.quantity for the item.name in the state (or zero) */}
+              <p className="mb-2">
+                {item.cost
+                  ? calculateTotal(
+                      item.index,
+                      preferredEquipment[item.url] || 0,
+                      item.cost.quantity,
+                      item.cost.unit
+                    )
+                  : "MAGIC"}
+              </p>
+            </article>
+          ) : null
+        )}
       </section>
       <button
         onClick={addToCartGoToCheckout}

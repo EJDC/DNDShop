@@ -17,9 +17,9 @@ const PaymentFormWrapper: React.FC<PaymentFormWrapperProps> = ({
   //Render Payment Form based on selected payment option
   const renderPaymentForm = () => {
     switch (selectedPaymentOption) {
-      case "Payment upon arrival at toll station":
+      case "Pay on arrival at shop":
         return <PaymentAtTollForm onChange={handlePaymentInfoChange} />;
-      case "ImperiumCoins online payment":
+      case "House Kunderak Online Payment":
         return <OnlinePaymentForm onChange={handlePaymentInfoChange} />;
       default:
         return <p>Select a payment method</p>;
@@ -46,11 +46,11 @@ const PaymentFormWrapper: React.FC<PaymentFormWrapperProps> = ({
           onChange={handlePaymentMethodChange}
           className="border rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-          <option value="Payment upon arrival at toll station">
-            Pay on arrival at Toll Station
+          <option value="Pay on arrival at shop">
+            Pay on arrival at shop
           </option>
-          <option value="ImperiumCoins online payment">
-            ImperiumCoins Online Payment
+          <option value="House Kunderak Online Payment">
+            House Kunderak Online Payment
           </option>
         </select>
       </div>

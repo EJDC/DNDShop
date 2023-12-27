@@ -41,7 +41,7 @@ const OnlinePaymentForm: React.FC<OnlinePaymentFormProps> = ({ onChange }) => {
 
   return (
     <form className="border bg-gray-200 border-gray-400 p-4 rounded-md mb-4">
-      <h2 className="text-lg font-bold mb-2">Online Payment</h2>
+      <h2 className="text-lg font-bold mb-2">House Kunderak Online Payment</h2>
       <div className="mb-4">
         <label
           className="block text-gray-800 text-sm font-bold mb-2"

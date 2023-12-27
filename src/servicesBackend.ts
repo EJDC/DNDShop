@@ -37,9 +37,9 @@ export interface PaymentOption {
 // Define delivery options and associated costs
 export const deliveryOptions = [
     {
-        name: 'Online (SP)QR Code',
+        name: 'Collect at shop',
         price: 0,
-        description: 'Convenient and immediate delivery online',
+        description: 'Pickup your items at one of our convenient locations',
         default: true
     },
     {
@@ -59,15 +59,15 @@ export const deliveryOptions = [
 // Define payment options and associated fees
 export const paymentOptions = [
     {
-        name: 'Payment upon arrival at toll station',
+        name: 'Payment in coin on arrival at shop',
         price: 0,
-        description: 'Change given but queues possible.',
+        description: 'Change given but queues possible. No bartering',
         default: true,
     },
     {
-        name: 'ImperiumCoins online payment',
+        name: 'House Kunderak Online Payment',
         price: 0.5,
-        description: 'Secure online payment in ImperiumCoins.',
+        description: 'Secure online payment provided by House Kunderak banking family.',
         default: false,
     },
 ];

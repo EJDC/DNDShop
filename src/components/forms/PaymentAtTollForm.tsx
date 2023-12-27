@@ -2,25 +2,25 @@ import React from "react";
 import { BasePaymentInfo } from "../../containers/Payment";
 import { useState } from "react";
 
-export interface AtTollPaymentInfo extends BasePaymentInfo {
+export interface AtShopPaymentInfo extends BasePaymentInfo {
   dayOfWeek: string;
   timeSelection: string;
   isChecked: boolean;
 }
 
-interface PaymentAtTollFormProps {
-  onChange: (paymentInfo: AtTollPaymentInfo) => void;
+interface PaymentAtShopFormProps {
+  onChange: (paymentInfo: AtShopPaymentInfo) => void;
 }
 
-const PaymentAtTollForm: React.FC<PaymentAtTollFormProps> = ({ onChange }) => {
-  const initialPaymentInfo: AtTollPaymentInfo = {
+const PaymentAtTollForm: React.FC<PaymentAtShopFormProps> = ({ onChange }) => {
+  const initialPaymentInfo: AtShopPaymentInfo = {
     dayOfWeek: "",
     timeSelection: "",
     isChecked: false,
   };
 
   const [paymentInfo, setPaymentInfo] =
-    useState<AtTollPaymentInfo>(initialPaymentInfo);
+    useState<AtShopPaymentInfo>(initialPaymentInfo);
 
   const handleChange = (
     //Takes a Select or Input Change
@@ -28,7 +28,6 @@ const PaymentAtTollForm: React.FC<PaymentAtTollFormProps> = ({ onChange }) => {
       | React.ChangeEvent<HTMLSelectElement>
       | React.ChangeEvent<HTMLInputElement>
   ) => {
-
     //Deconstruct
     const { name, value, type } = e.target;
 
@@ -65,7 +64,7 @@ const PaymentAtTollForm: React.FC<PaymentAtTollFormProps> = ({ onChange }) => {
 
   return (
     <form className="border bg-gray-200 border-gray-400 p-4 rounded-md mb-4">
-      <h2 className="text-lg font-bold mb-2">Payment at Toll</h2>
+      <h2 className="text-lg font-bold mb-2">Payment at Shop in Coin</h2>
       <div className="mb-4">
         <label
           className="block text-gray-800 text-sm font-bold mb-2"
@@ -82,12 +81,11 @@ const PaymentAtTollForm: React.FC<PaymentAtTollFormProps> = ({ onChange }) => {
           <option value="" disabled selected>
             Please select day of the week
           </option>
-          <option value="Monday">dies Lunae</option>
-          <option value="Tuesday">dies Martis</option>
-          <option value="Wednesday">dies Mercurii</option>
-          <option value="Thursday">dies Jovis</option>
-          <option value="Firday">dies Veneris</option>
-
+          <option value="Monday">Firstday</option>
+          <option value="Tuesday">Seconday</option>
+          <option value="Wednesday">Thirday</option>
+          <option value="Thursday">Fourthday</option>
+          <option value="Firday">Fifthday</option>
         </select>
       </div>
       <div className="mb-4">

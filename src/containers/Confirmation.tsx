@@ -2,7 +2,7 @@ import React from "react";
 import { items } from "../servicesBackend";
 import { CustomerInfo } from "../components/forms/CustomerInfoForm";
 import { OrderInfo } from "./Checkout";
-import { AtTollPaymentInfo } from "../components/forms/PaymentAtTollForm";
+import { AtShopPaymentInfo } from "../components/forms/PaymentAtTollForm";
 import { OnlinePaymentInfo } from "../components/forms/OnlinePaymentForm";
 import OrderConfirmationHeader from "../components/summaries/OrderConfirmationSummary";
 import CustomerDetailsSummary from "../components/summaries/CustomerDetailsSummary";
@@ -12,7 +12,7 @@ import TotalSummary from "../components/summaries/TotalsSummary";
 
 export interface BasePaymentInfo {}
 
-export type PaymentInfo = OnlinePaymentInfo | AtTollPaymentInfo | null;
+export type PaymentInfo = OnlinePaymentInfo | AtShopPaymentInfo | null;
 
 interface OrderConfirmationProps {
   selectedServices: { [key: string]: number };
