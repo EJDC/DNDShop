@@ -3,7 +3,7 @@ import { useState } from "react";
 import { items, paymentOptions } from "../servicesBackend";
 import { CustomerInfo } from "../components/forms/CustomerInfoForm";
 import { OrderInfo } from "./Checkout";
-import { AtShopPaymentInfo } from "../components/forms/PaymentAtTollForm";
+import { AtShopPaymentInfo } from "../components/forms/PaymentAtShopForm";
 import { OnlinePaymentInfo } from "../components/forms/OnlinePaymentForm";
 import CustomerDetailsSummary from "../components/summaries/CustomerDetailsSummary";
 import TotalSummary from "../components/summaries/TotalsSummary";
@@ -79,7 +79,7 @@ const Payment: React.FC<PaymentProps> = ({
     }
 
     // Check payment information based on the selected payment method
-    if (selectedPaymentOption === "Payment upon arrival at toll station") {
+    if (selectedPaymentOption === "Payment upon arrival at shop") {
       const tollPaymentInfo = paymentInfo as AtShopPaymentInfo;
 
       // Check required fields for Payment at Toll Station

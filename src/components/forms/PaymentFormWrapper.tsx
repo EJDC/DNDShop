@@ -1,4 +1,4 @@
-import PaymentAtTollForm from "./PaymentAtTollForm";
+import PaymentAtTollForm from "./PaymentAtShopForm";
 import OnlinePaymentForm from "./OnlinePaymentForm";
 import { PaymentInfo } from "../../containers/Payment";
 
@@ -17,7 +17,7 @@ const PaymentFormWrapper: React.FC<PaymentFormWrapperProps> = ({
   //Render Payment Form based on selected payment option
   const renderPaymentForm = () => {
     switch (selectedPaymentOption) {
-      case "Pay on arrival at shop":
+      case "Payment in coin on arrival at shop":
         return <PaymentAtTollForm onChange={handlePaymentInfoChange} />;
       case "House Kunderak Online Payment":
         return <OnlinePaymentForm onChange={handlePaymentInfoChange} />;
@@ -46,7 +46,7 @@ const PaymentFormWrapper: React.FC<PaymentFormWrapperProps> = ({
           onChange={handlePaymentMethodChange}
           className="border rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-          <option value="Pay on arrival at shop">
+          <option value="Payment in coin on arrival at shop">
             Pay on arrival at shop
           </option>
           <option value="House Kunderak Online Payment">

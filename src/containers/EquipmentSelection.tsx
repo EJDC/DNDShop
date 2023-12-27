@@ -118,7 +118,7 @@ const EquipmentSelection: React.FC<EquipmentSelectionProps> = ({
   return (
     <main className="container mx-auto px-4 py-8 mt-5 max-w-xl lg:max-w-7xl">
       <h1 className="text-3xl text-primary font-bold mb-8 text-center">
-        Service Selection
+        Equipment Selection
       </h1>
       {/* Create a Grid */}
       <section className="md:ml-10 md:mr-10 bg-secondary grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-4 py-8 rounded-lg">
